@@ -1,0 +1,23 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id "org.jetbrains.intellij" version "0.0.43"
+}
+
+apply plugin: 'idea'
+apply plugin: 'org.jetbrains.intellij'
+apply plugin: 'java'
+
+intellij {
+    version 'IU-15.0.4'
+    plugins 'coverage'
+    type 'IU'
+    pluginName 'camel-intellij-plugin'
+}
+
+group 'com.intellij.camel'
+version '0.1'
