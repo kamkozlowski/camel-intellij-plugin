@@ -19,7 +19,8 @@ public class RouteEditor implements FileEditor{
     private JPanel mainPanel;
 
     public RouteEditor(){
-        mainPanel = new JPanel();
+        mainPanel = new RouteView();
+        ((RouteView)mainPanel).init();
     }
 
     @NotNull
