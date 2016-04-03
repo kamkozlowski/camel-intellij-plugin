@@ -1,98 +1,115 @@
 package com.intellij.camel;
 
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Rectangle;
-
-import java.awt.geom.Rectangle2D;
-import java.util.HashMap;
-import java.util.Map;
+import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.util.mxConstants;
+import com.mxgraph.view.mxGraph;
+import com.mxgraph.view.mxStylesheet;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
-import org.jgraph.JGraph;
-import org.jgraph.graph.DefaultGraphCell;
-import org.jgraph.graph.GraphConstants;
-
-import org.jgrapht.ListenableGraph;
-//import org.jgrapht.graph.Gr
-import org.jgrapht.graph.ListenableDirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
-
+/**
+ * Created by kozik on 03.04.16.
+ */
 public class RouteView extends JPanel {
-    private static final Color     DEFAULT_BG_COLOR = Color.decode( "#FAFBFF" );
-    private static final Dimension DEFAULT_SIZE = new Dimension( 530, 320 );
 
-    //
-    private JGraphModelAdapter m_jgAdapter;
+    public RouteView(){
+        setLayout(new GridBagLayout());
+    }
 
     /**
      * @see java.applet.Applet#init().
      */
     public void init(  ) {
-        // create a JGraphT graph
-        ListenableGraph g = new ListenableDirectedGraph( DefaultEdge.class );
 
-        // create a visualization using JGraph, via an adapter
-        m_jgAdapter = new JGraphModelAdapter( g );
-
-        JGraph jgraph = new JGraph( m_jgAdapter );
-
-        adjustDisplaySettings( jgraph );
-        //this.ad
-        this.add( jgraph );
-        resize( DEFAULT_SIZE );
-
-        // add some sample data (graph manipulated via JGraphT)
-        g.addVertex( "v1" );
-        g.addVertex( "v2" );
-        g.addVertex( "v3" );
-        g.addVertex( "v4" );
-
-        g.addEdge( "v1", "v2" );
-        g.addEdge( "v2", "v3" );
-        g.addEdge( "v3", "v1" );
-        g.addEdge( "v4", "v3" );
-
-        // position vertices nicely within JGraph component
-        positionVertexAt( "v1", 130, 40 );
-        positionVertexAt( "v2", 60, 200 );
-        positionVertexAt( "v3", 310, 230 );
-        positionVertexAt( "v4", 380, 70 );
-
-        // that's all there is to it!...
-    }
+        mxGraph graph = new mxGraph();
+        Object parent = graph.getDefaultParent();
 
 
-    private void adjustDisplaySettings( JGraph jg ) {
-        jg.setPreferredSize( DEFAULT_SIZE );
+        // get graph stylesheet
+        mxStylesheet stylesheet = graph.getStylesheet();
 
-        Color  c        = DEFAULT_BG_COLOR;
-        String colorStr = null;
+        // define image style name
 
-        try {
-            //colorStr = getParameter( "bgcolor" );
+        String EIP_icons[] = { "endpoint", "log", "transform", "endpointQueue" };
+
+        for(String icon : EIP_icons) {
+            String myStyleName = icon + "Style";
+            Hashtable<String, Object> style = new Hashtable<String, Object>();
+            style.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_IMAGE);
+            style.put(mxConstants.STYLE_IMAGE, "/icons/"+icon+".png");
+            style.put(mxConstants.STYLE_VERTICAL_LABEL_POSITION, mxConstants.ALIGN_BOTTOM);
+            stylesheet.putCellStyle(myStyleName, style);
         }
-        catch( Exception e ) {}
+// SHAPE_LINE
+        Map<String, Object> edge = new HashMap<String, Object>();
+        edge.put(mxConstants.STYLE_ROUNDED, true);
+        edge.put(mxConstants.STYLE_ORTHOGONAL, false);
+        edge.put(mxConstants.STYLE_EDGE, "elbowEdgeStyle");
+        edge.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_CONNECTOR);
+        edge.put(mxConstants.STYLE_ENDARROW, mxConstants.ARROW_CLASSIC);
+        edge.put(mxConstants.STYLE_VERTICAL_ALIGN, mxConstants.ALIGN_MIDDLE);
+        edge.put(mxConstants.STYLE_ALIGN, mxConstants.ALIGN_CENTER);
+        edge.put(mxConstants.STYLE_DASHED, 3);
+        edge.put(mxConstants.STYLE_STROKEWIDTH, 2f);
+        edge.put(mxConstants.STYLE_STROKECOLOR, "#000000"); // default is #6482B9
+        edge.put(mxConstants.STYLE_FONTCOLOR, "#ff0000");
 
-        if( colorStr != null ) {
-            c = Color.decode( colorStr );
+
+        mxStylesheet edgeStyle = new mxStylesheet();
+        //edgeStyle.setDefaultEdgeStyle(edge);
+        graph.getStylesheet().putCellStyle("edgeStyle",edge);
+
+
+        //Hashtable<String, Object> style2 = new Hashtable<String, Object>();
+        //style2.put( mxConstants.STYLE_FILLCOLOR, mxConstants.Co)
+
+        graph.getModel().beginUpdate();
+        try
+        {
+        //    Object v1 = graph.insertVertex(parent, null, "Hello", 20, 20, 80,
+       //             30);
+          //  Object v2 = graph.insertVertex(parent, null, "World!", 240, 150,
+        //            80, 30);
+
+            Object a = graph.insertVertex(parent, null, "Endpoint", 50, 50, 84, 50, "endpointStyle");
+            Object b = graph.insertVertex(parent, null, "Log",      250, 50, 84, 50, "logStyle");
+            Object c = graph.insertVertex(parent, null, "Mapping",  450, 50, 84, 50, "transformStyle");
+            Object d = graph.insertVertex(parent, null, "Outbound", 650, 150, 84, 50, "endpointQueueStyle");
+
+
+            graph.insertEdge(parent, null, null, a, b,"edgeStyle");
+            graph.insertEdge(parent, null, null, b, c,"edgeStyle");
+            graph.insertEdge(parent, null, null, c, d,"edgeStyle");
+            //graph.getV
+        }
+        finally
+        {
+            graph.getModel().endUpdate();
         }
 
-        jg.setBackground( c );
+        mxGraphComponent graphComponent = new mxGraphComponent(graph);
+        //graphComponent.setViewportView(new ImageViewport());
+        graphComponent.getViewport().setOpaque(true);
+        graphComponent.getViewport().setBackground(new Color(255, 249, 244));
+        graphComponent.setViewport(graphComponent.getViewport());
+
+       // getContentPane().add(graphComponent);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.weightx = gbc.weighty = 1.0;
+        gbc.gridx = 0;
+        gbc.fill = GridBagConstraints.BOTH;
+
+        this.add(graphComponent,gbc);
+        //this.setSize(1024,768);
+        //this.setM
+
+
+
+
     }
 
-
-    private void positionVertexAt( Object vertex, int x, int y ) {
-        DefaultGraphCell cell = m_jgAdapter.getVertexCell( vertex );
-        Map              attr = cell.getAttributes(  );
-        Rectangle2D b    = GraphConstants.getBounds( attr );
-
-        GraphConstants.setBounds( attr, new Rectangle( x, y, (int)b.getWidth(), (int)b.getHeight() ) );
-
-        Map cellAttr = new HashMap(  );
-        cellAttr.put( cell, attr );
-        m_jgAdapter.edit( cellAttr,  null, null,  null );
-    }
 }
