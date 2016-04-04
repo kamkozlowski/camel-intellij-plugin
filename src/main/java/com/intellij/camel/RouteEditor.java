@@ -16,9 +16,10 @@ import java.beans.PropertyChangeListener;
 
 public class RouteEditor implements FileEditor{
 
-    private JPanel mainPanel;
+    private JSplitPane mainPanel;
 
     public RouteEditor(){
+        UIManager.getDefaults().put("SplitPane.border", BorderFactory.createEmptyBorder());
         mainPanel = new RouteView();
         ((RouteView)mainPanel).init();
     }
