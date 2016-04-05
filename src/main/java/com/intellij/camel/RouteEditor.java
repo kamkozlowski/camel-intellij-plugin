@@ -8,10 +8,13 @@ import com.intellij.openapi.fileEditor.FileEditorLocation;
 import com.intellij.openapi.fileEditor.FileEditorState;
 import com.intellij.openapi.fileEditor.FileEditorStateLevel;
 import com.intellij.openapi.util.Key;
+import com.intellij.ui.Colors;
+import org.jdesktop.swingx.painter.MattePainter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.awt.*;
 import java.beans.PropertyChangeListener;
 
 public class RouteEditor implements FileEditor{
@@ -20,6 +23,9 @@ public class RouteEditor implements FileEditor{
 
     public RouteEditor(){
         UIManager.getDefaults().put("SplitPane.border", BorderFactory.createEmptyBorder());
+        UIManager.put("TaskPane.titleBackgroundGradientStart", Color.LIGHT_GRAY);
+        UIManager.put("TaskPane.titleBackgroundGradientEnd", Color.LIGHT_GRAY);
+        UIManager.put("TaskPane.borderColor", Color.GRAY);
         mainPanel = new RouteView();
         ((RouteView)mainPanel).init();
     }
