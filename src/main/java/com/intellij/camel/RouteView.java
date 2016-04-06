@@ -58,129 +58,53 @@ public class RouteView extends JSplitPane {
             graph.getModel().endUpdate();
         }
 
+        final JXLabel activeMqButton = new JXLabel();
+        activeMqButton.setText("ActiveMQ");
+        activeMqButton.setIcon(Images.EndpointQueue.getIcon(15, 15));
+        activeMqButton.setHorizontalAlignment(JXLabel.LEFT);
 
+        final JXLabel beanButton = new JXLabel();
+        beanButton.setText("Bean");
+        beanButton.setIcon(Images.Bean.getIcon(15, 15));
+        beanButton.setHorizontalAlignment(JXLabel.LEFT);
 
-
-
-            // create a label
-
-            final JXLabel label = new JXLabel();
-
-
-
-
-
-
-
-//            label.setFont(new Font("Segoe UI", Font.BOLD, 14));
-
-            label.setText("task pane item 1 : a label");
-
-           // label.setIcon(Images.NetworkDisconnected.getIcon(32, 32));
-
-            label.setHorizontalAlignment(JXLabel.LEFT);
-
-          //  label.setBackgroundPainter(this.getParent().getP);
-
-
-
-// tweak with the UI defaults for the taskpane and taskpanecontainer
-
-            //changeUIdefaults();
-
-
-
-// create a taskpanecontainer
-
-            JXTaskPaneContainer taskpanecontainer = new JXTaskPaneContainer();
-     //   BoxLayout bl = new BoxLayout(taskpanecontainer, BoxLayout.PAGE_AXIS);
+        JXTaskPaneContainer taskpanecontainer = new JXTaskPaneContainer();
         taskpanecontainer.setLayout(new GridBagLayout());
 
-      //  taskpanecontainer.ga
+        JXTaskPane componentsSection = new JXTaskPane();
+        componentsSection.setTitle("Components");
+        componentsSection.setBackground(new Color(155,155,155));
+        componentsSection.setIcon(Images.Directory.getIcon(24, 24));
 
-    //    taskpanecontainer.getLayout().
+        componentsSection.add(activeMqButton);
+        componentsSection.add(beanButton);
 
-   //     JPanel container = new JPanel( gl = new GridLayout( 2, 1, 0, 0 ) );
-   //     gl.setHgap(0);
-   //     gl.setVgap(0);
+        JXTaskPane routingSection = new JXTaskPane();
+        routingSection.setTitle("Routing");
+        routingSection.setBackground(new Color(155,155,155));
+        routingSection.setIcon(Images.Directory.getIcon(24, 24));
 
+        final JXLabel aggregateButton = new JXLabel();
+        aggregateButton.setText("Bean");
+        aggregateButton.setIcon(Images.Aggregate.getIcon(15, 15));
+        aggregateButton.setHorizontalAlignment(JXLabel.LEFT);
 
+        routingSection.add(aggregateButton);
 
-// create a taskpane, and set it's title and icon
-
-            JXTaskPane taskpane = new JXTaskPane();
-
-
-
-
-
-
-
-            taskpane.setTitle("My Tasks");
-        taskpane.setBackground(new Color(155,155,155));
-
-            //taskpane.setIcon(Images.Quit.getIcon(24, 24));
-
-
-
-// add various actions and components to the taskpane
-
-            taskpane.add(label);
-
-            taskpane.add(new AbstractAction() {
-
-                {
-
-                    putValue(Action.NAME, "task pane item 2 : an action");
-
-                    putValue(Action.SHORT_DESCRIPTION, "perform an action");
-
-                  //  putValue(Action.SMALL_ICON, Images.NetworkConnected.getIcon(32, 32));
-
-                }
-
-                public void actionPerformed(ActionEvent e) {
-
-                    label.setText("an action performed");
-
-                }
-
-            });
-
-
-
-// add the task pane to the taskpanecontainer
-
-        JXTaskPane taskpane2 = new JXTaskPane();
-
-        //taskpane2.setTitle("My Tasks2");
-        //taskpane.
-
-
-        //taskpane.setBorder(BorderFactory.createEmptyBorder());
-        //taskpane2.setBorder(BorderFactory.createEmptyBorder());
         GridBagConstraints c = new GridBagConstraints();
         c.ipadx = 0;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
         c.weightx = 1;
-
-
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
-        taskpanecontainer.add(taskpane,c);
-
+        taskpanecontainer.add(componentsSection,c);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
         c.weighty = 1;
-        taskpanecontainer.add(taskpane2,c);
-        //taskpanecontainer.
+        taskpanecontainer.add(routingSection,c);
         taskpanecontainer.setBorder(BorderFactory.createEmptyBorder());
-
-      //  taskpanecontainer.
-
-
 
         mxGraphComponent graphComponent = new mxGraphComponent(graph);
         graphComponent.getViewport().setOpaque(true);
