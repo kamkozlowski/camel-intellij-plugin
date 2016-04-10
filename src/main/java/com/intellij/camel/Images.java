@@ -88,7 +88,7 @@ public enum Images {
 
 
 
-    Icon getIcon(int width, int height) {
+    public Icon getIcon(int width, int height) {
 
         return new ImageIcon(getImage(width, height));
 
