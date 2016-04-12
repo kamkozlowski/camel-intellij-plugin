@@ -13,6 +13,10 @@ public class PalettePane extends JXTaskPaneContainer {
 
     public PalettePane(){
 
+        UIManager.put("TaskPane.titleBackgroundGradientStart", Color.LIGHT_GRAY);
+        UIManager.put("TaskPane.titleBackgroundGradientEnd", Color.LIGHT_GRAY);
+        UIManager.put("TaskPane.borderColor", Color.GRAY);
+
         final JXLabel activeMqButton = new JXLabel();
         activeMqButton.setText("ActiveMQ");
         activeMqButton.setIcon(Images.EndpointQueue.getIcon(15, 15));

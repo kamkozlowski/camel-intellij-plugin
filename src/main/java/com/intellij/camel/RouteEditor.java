@@ -23,9 +23,7 @@ public class RouteEditor implements FileEditor{
 
     public RouteEditor(){
         UIManager.getDefaults().put("SplitPane.border", BorderFactory.createEmptyBorder());
-        UIManager.put("TaskPane.titleBackgroundGradientStart", Color.LIGHT_GRAY);
-        UIManager.put("TaskPane.titleBackgroundGradientEnd", Color.LIGHT_GRAY);
-        UIManager.put("TaskPane.borderColor", Color.GRAY);
+
         mainPanel = new RouteView();
         ((RouteView)mainPanel).init();
     }

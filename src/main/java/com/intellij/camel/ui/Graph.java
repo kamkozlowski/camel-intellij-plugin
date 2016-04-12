@@ -4,13 +4,13 @@ import com.mxgraph.util.mxConstants;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
 
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.*;
 
 public class Graph {
 
     private mxGraph mxGraph = new mxGraph();
+    private List<Node> nodeList = new ArrayList<Node>();
+
 
     public Graph(){
         mxGraph = new mxGraph();
