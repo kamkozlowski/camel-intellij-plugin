@@ -1,6 +1,8 @@
 package com.intellij.camel;
 
 
+import com.intellij.camel.transformation.GraphBuilder;
+import com.intellij.camel.ui.Node;
 import com.intellij.codeHighlighting.BackgroundEditorHighlighter;
 import com.intellij.ide.structureView.StructureViewBuilder;
 import com.intellij.openapi.fileEditor.FileEditor;
@@ -8,24 +10,28 @@ import com.intellij.openapi.fileEditor.FileEditorLocation;
 import com.intellij.openapi.fileEditor.FileEditorState;
 import com.intellij.openapi.fileEditor.FileEditorStateLevel;
 import com.intellij.openapi.util.Key;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.Colors;
 import org.jdesktop.swingx.painter.MattePainter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.awt.*;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.util.List;
 
 public class RouteEditor implements FileEditor{
 
     private JSplitPane mainPanel;
+    private GraphBuilder graphBuilder;
 
-    public RouteEditor(){
+    public RouteEditor(VirtualFile file){
         UIManager.getDefaults().put("SplitPane.border", BorderFactory.createEmptyBorder());
-
+        graphBuilder = new GraphBuilder(new File(file.getCanonicalPath()));
         mainPanel = new RouteView();
-        ((RouteView)mainPanel).init();
+        List<Node> nodes = graphBuilder.toNodesList();
+        ((RouteView)mainPanel).init(nodes);
     }
 
     @NotNull

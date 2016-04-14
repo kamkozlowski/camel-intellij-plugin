@@ -1,6 +1,7 @@
 package com.intellij.camel;
 
 import com.intellij.camel.ui.Graph;
+import com.intellij.camel.ui.Node;
 import com.intellij.camel.ui.PalettePane;
 import com.intellij.camel.ui.PropertiesPane;
 import com.mxgraph.swing.mxGraphComponent;
@@ -16,12 +17,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 public class RouteView extends JSplitPane {
 
-    public void init(){
-        mxGraphComponent graphComponent = new mxGraphComponent(new Graph().getMxGraph());
+    public void init(List<Node> nodes){
+        mxGraphComponent graphComponent = new mxGraphComponent(new Graph(nodes).getMxGraph());
         graphComponent.getViewport().setOpaque(true);
         graphComponent.getViewport().setBackground(new Color(255, 249, 244));
         graphComponent.setBorder(BorderFactory.createEmptyBorder());

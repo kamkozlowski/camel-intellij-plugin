@@ -12,7 +12,9 @@ public class Graph {
     private List<Node> nodeList = new ArrayList<Node>();
 
 
-    public Graph(){
+    public Graph(List<Node> nodeList){
+        this.nodeList = nodeList;
+
         mxGraph = new mxGraph();
         Object parent = mxGraph.getDefaultParent();
         mxStylesheet stylesheet = mxGraph.getStylesheet();
@@ -39,15 +41,25 @@ public class Graph {
         edge.put(mxConstants.STYLE_STROKECOLOR, "#000000"); // default is #6482B9
         edge.put(mxConstants.STYLE_FONTCOLOR, "#ff0000");
         mxGraph.getStylesheet().putCellStyle("edgeStyle",edge);
+
+
+        draw();
+
+    }
+
+    private void draw(){
         mxGraph.getModel().beginUpdate();
+        Object parent = mxGraph.getDefaultParent();
         try{
-            Object a = mxGraph.insertVertex(parent, null, "Endpoint", 50, 50, 84, 50, "endpointStyle");
-            Object b = mxGraph.insertVertex(parent, null, "Log",      250, 50, 84, 50, "logStyle");
-            Object c = mxGraph.insertVertex(parent, null, "Mapping",  450, 50, 84, 50, "transformStyle");
-            Object d = mxGraph.insertVertex(parent, null, "Outbound", 650, 150, 84, 50, "endpointQueueStyle");
-            mxGraph.insertEdge(parent, null, null, a, b,"edgeStyle");
-            mxGraph.insertEdge(parent, null, null, b, c,"edgeStyle");
-            mxGraph.insertEdge(parent, null, null, c, d,"edgeStyle");
+            for(Node node : nodeList) {
+                Object a = mxGraph.insertVertex(parent, null, node.getName(), node.getX(), node.getY(), 84, 50, "endpointStyle");
+                //Object b = mxGraph.insertVertex(parent, null, "Log", 250, 50, 84, 50, "logStyle");
+                //Object c = mxGraph.insertVertex(parent, null, "Mapping", 450, 50, 84, 50, "transformStyle");
+                //Object d = mxGraph.insertVertex(parent, null, "Outbound", 650, 150, 84, 50, "endpointQueueStyle");
+                //mxGraph.insertEdge(parent, null, null, a, b,"edgeStyle");
+                //mxGraph.insertEdge(parent, null, null, b, c,"edgeStyle");
+                //mxGraph.insertEdge(parent, null, null, c, d,"edgeStyle");
+            }
         }
         finally{
             mxGraph.getModel().endUpdate();

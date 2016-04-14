@@ -4,6 +4,7 @@ import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.fileEditor.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
+import org.apache.camel.model.RouteDefinition;
 import org.jboss.tools.fuse.transformation.camel.CamelConfigBuilder;
 import org.jboss.tools.fuse.transformation.camel.CamelSpringBuilder;
 import org.jdom.Element;
@@ -48,20 +49,6 @@ public class RouteEditorProvider implements ApplicationComponent, FileEditorProv
         boolean accept;
         if(file.getName().equals(CamelPluginConstants.DEFAULT_CAMEL_CONTEXT_NAME)) {
             LOG.info("Camel context found");
-
-
-            CamelSpringBuilder springBuilder = null;
-            try {
-                springBuilder = (CamelSpringBuilder) CamelConfigBuilder.loadConfig(new File(file.getCanonicalPath()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            System.out.println(springBuilder.getCamelContext().getRoutes().toString());
-
-
-
-
-
             accept = true;
         }
         else {
@@ -73,7 +60,7 @@ public class RouteEditorProvider implements ApplicationComponent, FileEditorProv
     @NotNull
     @Override
     public FileEditor createEditor(@NotNull Project project, @NotNull VirtualFile virtualFile) {
-        return new RouteEditor();
+        return new RouteEditor(virtualFile);
     }
 
     @Override

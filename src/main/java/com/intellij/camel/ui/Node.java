@@ -4,11 +4,19 @@ public class Node {
     private int x;
     private int y;
     private String name;
+    private String imageName = "bean";
 
     public Node(int x, int y, String name) {
         this.x = x;
         this.y = y;
         this.name = name;
+
+        if(name.startsWith("activemq")){
+            imageName = "endpointQueue";
+        }
+
+
+
     }
 
     public int getX() {
