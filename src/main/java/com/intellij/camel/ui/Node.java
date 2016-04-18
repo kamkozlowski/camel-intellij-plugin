@@ -3,6 +3,7 @@ package com.intellij.camel.ui;
 public class Node {
     private int x;
     private int y;
+    private boolean multipleOutputs = false;
     private String name;
     private String imageName = "bean";
 
@@ -41,5 +42,13 @@ public class Node {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isMultipleOutputs() {
+        return multipleOutputs;
+    }
+
+    public void setMultipleOutputs(boolean multipleOutputs) {
+        this.multipleOutputs = multipleOutputs;
     }
 }
