@@ -41,7 +41,7 @@ public class Graph {
         edge.put(mxConstants.STYLE_STROKECOLOR, "#000000"); // default is #6482B9
         edge.put(mxConstants.STYLE_FONTCOLOR, "#ff0000");
         mxGraph.getStylesheet().putCellStyle("edgeStyle",edge);
-
+        mxGraph.setCellsMovable(true);
 
         draw();
 

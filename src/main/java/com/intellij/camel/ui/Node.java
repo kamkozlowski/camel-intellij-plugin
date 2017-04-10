@@ -11,13 +11,7 @@ public class Node {
         this.x = x;
         this.y = y;
         this.name = name;
-
-        if(name.startsWith("activemq")){
-            imageName = "endpointQueue";
-        }
-
-
-
+        imageName = "endpointQueue";
     }
 
     public int getX() {

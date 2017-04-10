@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.intellij" version "0.0.43"
+    id "org.jetbrains.intellij" version "0.2.7"
 }
 
 apply plugin: 'idea'
@@ -35,9 +35,4 @@ dependencies {
     compile('org.apache.camel:camel-core:2.15.1')
     compile('org.apache.camel:camel-spring:2.15.1')
     compile('org.apache.camel:camel-blueprint:2.15.1')
-    compile('com.sun.xml.bind:jaxb-xjc:2.2.11')
-    compile('com.googlecode.jsonschema2pojo:jsonschema2pojo-core:0.3.7')
-    compile('org.apache.xmlbeans:xmlbeans:2.6.0')
-    compile('com.sun.xml.bind:jaxb-impl:2.2.11')
-    compile fileTree(dir: 'libs', include: ['*.jar'])
 }

@@ -5,8 +5,6 @@ import com.intellij.openapi.fileEditor.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.apache.camel.model.RouteDefinition;
-import org.jboss.tools.fuse.transformation.camel.CamelConfigBuilder;
-import org.jboss.tools.fuse.transformation.camel.CamelSpringBuilder;
 import org.jdom.Element;
 import com.intellij.openapi.diagnostic.Logger;
 
